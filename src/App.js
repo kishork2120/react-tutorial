@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AddListItem from "./components/AddListItem.component";
+import ListItem from "./components/listItem.component";
 
 function App() {
+  const [listItems, setListItems] = useState([]);
+
+  const addList = (item)=>{
+    if(!item) return;
+    const list = [...listItems];
+    list.push(item);
+    setListItems(list);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddListItem
+        addList={addList}
+      />
+      <ul>
+        {listItems.map((item,index)=>(
+          <ListItem itemName={item} index={index}/>
+        ))}
+      </ul>
     </div>
   );
 }
